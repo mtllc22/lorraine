@@ -27,6 +27,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-around;
   margin-top: 30px;
+  background-color: #3c3d3d;
 }
 
 .produto {
