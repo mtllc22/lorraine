@@ -39,10 +39,39 @@ function gerarProdutos() {
 
         // Adiciona a div do produto à seção de produtos
         produtosSection.appendChild(divProduto);
+
+        // Adicionar o evento de clique para abrir a imagem no modal
+        img.addEventListener('click', () => {
+          abrirModal(caminhoImagem, nomeImagem);
+        });
       })
       .catch(() => {
         // Se a imagem falhou, não faz nada (não adiciona o produto)
       });
+  }
+}
+
+// Função para abrir a imagem no modal
+function abrirModal(imagem, nomeImagem) {
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const captionText = document.getElementById("modal-caption");
+
+  modal.style.display = "block";  // Exibe o modal
+  modalImg.src = imagem;  // Define a imagem do modal
+  captionText.textContent = nomeImagem;  // Define o nome da imagem na legenda
+
+  // Quando o usuário clica no "X", fecha o modal
+  const closeBtn = document.getElementById("close");
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Fechar o modal se clicar fora da imagem
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   }
 }
 
