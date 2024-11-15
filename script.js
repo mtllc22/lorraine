@@ -1,4 +1,3 @@
-// Função para gerar os 50 produtos dinamicamente
 function gerarProdutos() {
   const produtosSection = document.getElementById('produtos');
   
