@@ -1,11 +1,9 @@
 function gerarProdutos() {
   const produtosSection = document.getElementById('produtos');
 
-  // Array para armazenar os nomes das imagens
+  // Array para armazenar os nomes e caminhos das imagens
   const imagens = [];
-  
-  // Criar nomes e armazenar no array
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= 40; i++) { // Ajuste para incluir até 40 produtos
     const caminhoImagem = `img/produto (${i}).jpg`;
     const nomeImagem = `produto (${i})`.replace(/[()]/g, '');
     imagens.push({ caminho: caminhoImagem, nome: nomeImagem });
@@ -14,36 +12,32 @@ function gerarProdutos() {
   // Ordenar as imagens em ordem alfabética
   imagens.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { numeric: true }));
 
-  // Criar os elementos no DOM com base na ordem
+  // Criar os elementos no DOM, independentemente de carregar ou não
   imagens.forEach(imagem => {
+    const divProduto = document.createElement('div');
+    divProduto.classList.add('produto');
+
     const img = new Image();
     img.src = imagem.caminho;
-    const imgPromise = new Promise((resolve, reject) => {
-      img.onload = function () {
-        resolve(imagem);
-      };
-      img.onerror = function () {
-        reject();
-      };
-    });
+    img.alt = imagem.nome;
 
-    imgPromise
-      .then(({ caminho, nome }) => {
-        const divProduto = document.createElement('div');
-        divProduto.classList.add('produto');
-        img.alt = nome;
-        divProduto.appendChild(img);
-        const nomeImagemElement = document.createElement('p');
-        nomeImagemElement.textContent = nome;
-        divProduto.appendChild(nomeImagemElement);
-        produtosSection.appendChild(divProduto);
-        img.addEventListener('click', () => {
-          abrirModal(caminho, nome);
-        });
-      })
-      .catch(() => {
-        console.warn(`Erro ao carregar a imagem: ${imagem.caminho}`);
-      });
+    // Garantir que o elemento seja renderizado mesmo que a imagem falhe
+    img.onerror = function () {
+      img.src = 'img/placeholder.jpg'; // Exibir uma imagem padrão se a original não carregar
+    };
+
+    divProduto.appendChild(img);
+
+    const nomeImagemElement = document.createElement('p');
+    nomeImagemElement.textContent = imagem.nome;
+    divProduto.appendChild(nomeImagemElement);
+
+    produtosSection.appendChild(divProduto);
+
+    // Adicionar funcionalidade de clique para abrir modal
+    img.addEventListener('click', () => {
+      abrirModal(imagem.caminho, imagem.nome);
+    });
   });
 }
 
@@ -54,6 +48,7 @@ function abrirModal(imagem, nomeImagem) {
   modal.style.display = "block";
   modalImg.src = imagem;
   captionText.textContent = nomeImagem;
+
   const closeBtn = document.getElementById("close");
   closeBtn.onclick = function () {
     modal.style.display = "none";
