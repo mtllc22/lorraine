@@ -3,7 +3,7 @@ function gerarProdutos() {
   const produtosSection = document.getElementById('produtos');
   
   for (let i = 1; i <= 50; i++) {
-    const caminhoImagem = `img/produto (${i}).png`;  // Caminho para a imagem
+    const caminhoImagem = `img/produto (${i}).jpg`;  // Caminho para a imagem
 
     // Cria uma nova imagem para verificar se o arquivo existe
     const img = new Image();
