@@ -9,29 +9,40 @@ function gerarProdutos() {
     const img = new Image();
     img.src = caminhoImagem;
 
-    // Quando a imagem for carregada corretamente, mostramos o produto
-    img.onload = function() {
-      const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
+    // Usar uma Promise para verificar a imagem de forma assíncrona
+    const imgPromise = new Promise((resolve, reject) => {
+      img.onload = function() {
+        resolve(caminhoImagem);  // A imagem foi carregada corretamente
+      };
+      img.onerror = function() {
+        reject();  // Se falhar, rejeitamos a Promise
+      };
+    });
 
-      const divProduto = document.createElement('div');
-      divProduto.classList.add('produto');
+    // Trabalhando com a Promise para decidir se criamos o produto
+    imgPromise
+      .then(() => {
+        // Se a imagem carregou com sucesso, criamos o produto
+        const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
 
-      // Adiciona a imagem à div do produto
-      divProduto.appendChild(img);
+        const divProduto = document.createElement('div');
+        divProduto.classList.add('produto');
 
-      // Cria e adiciona o nome da imagem abaixo da foto
-      const nomeImagemElement = document.createElement('p');
-      nomeImagemElement.textContent = nomeImagem;
-      divProduto.appendChild(nomeImagemElement);
+        // A imagem é carregada corretamente, então a adicionamos à div
+        img.alt = nomeImagem;  // Definir texto alternativo para a imagem
+        divProduto.appendChild(img);
 
-      // Adiciona a div do produto à seção de produtos
-      produtosSection.appendChild(divProduto);
-    };
+        // Cria e adiciona o nome da imagem abaixo da foto
+        const nomeImagemElement = document.createElement('p');
+        nomeImagemElement.textContent = nomeImagem;
+        divProduto.appendChild(nomeImagemElement);
 
-    // Se houver erro ao carregar a imagem, não mostramos nada
-    img.onerror = function() {
-      // A imagem não existe, portanto, não fazemos nada (não exibimos o produto)
-    };
+        // Adiciona a div do produto à seção de produtos
+        produtosSection.appendChild(divProduto);
+      })
+      .catch(() => {
+        // Se a imagem falhou, não faz nada (não adiciona o produto)
+      });
   }
 }
 
