@@ -1,6 +1,36 @@
-// Exemplo de função para trocar a imagem de um produto
-function atualizarImagem(produtoId, novaImagemUrl) {
-  const produto = document.getElementById(produtoId);
-  const imagem = produto.querySelector('img');
-  imagem.src = novaImagemUrl;
+// Função para gerar os 50 produtos dinamicamente
+function gerarProdutos() {
+  const produtosSection = document.getElementById('produtos');
+  
+  for (let i = 1; i <= 50; i++) {
+    const produto = {
+      nome: `Produto ${i}`,
+      imagem: `img/produto${i}.jpg`,
+      descricao: `Descrição do produto ${i}.`
+    };
+
+    const divProduto = document.createElement('div');
+    divProduto.classList.add('produto');
+
+    const imgProduto = document.createElement('img');
+    imgProduto.src = produto.imagem;
+    imgProduto.alt = produto.nome;
+
+    const h2Produto = document.createElement('h2');
+    h2Produto.textContent = produto.nome;
+
+    const pDescricao = document.createElement('p');
+    pDescricao.textContent = produto.descricao;
+
+    // Adiciona os elementos ao produto
+    divProduto.appendChild(imgProduto);
+    divProduto.appendChild(h2Produto);
+    divProduto.appendChild(pDescricao);
+
+    // Adiciona o produto à seção de produtos
+    produtosSection.appendChild(divProduto);
+  }
 }
+
+// Chama a função para gerar os produtos
+gerarProdutos();
