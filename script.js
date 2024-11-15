@@ -5,7 +5,8 @@ function gerarProdutos() {
   for (let i = 1; i <= 50; i++) {
     const produto = {
       nome: `Produto ${i}`,
-      imagem: `img/produto${i}.jpg`,
+      // Ajustando o caminho da imagem para 'produto (1).png', 'produto (2).png', etc.
+      imagem: `img/produto (${i}).png`,
       descricao: `Descrição do produto ${i}.`
     };
 
