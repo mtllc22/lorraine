@@ -84,8 +84,10 @@ footer {
 .modal-content {
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  max-width: none; /* Remove o limite de largura */
+  max-height: none; /* Remove o limite de altura */
+  width: auto; /* Ajusta o tamanho conforme a imagem original */
+  height: auto; /* Mantém a proporção original */
 }
 
 .caption {
