@@ -3,30 +3,47 @@ function gerarProdutos() {
   const produtosSection = document.getElementById('produtos');
   
   for (let i = 1; i <= 50; i++) {
-    const produto = {
-      imagem: `img/produto (${i}).png`,  // Caminho para a imagem
-    };
+    const caminhoImagem = `img/produto (${i}).png`;  // Caminho para a imagem
 
-    // Extrair o nome do arquivo (sem a extensão)
-    const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
+    // Verificar se a imagem existe antes de criar o produto
+    const imagemExiste = verificarImagem(caminhoImagem);
 
-    const divProduto = document.createElement('div');
-    divProduto.classList.add('produto');
+    if (imagemExiste) {
+      const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
 
-    const imgProduto = document.createElement('img');
-    imgProduto.src = produto.imagem;
-    imgProduto.alt = nomeImagem;  // Usamos o nome do produto como texto alternativo
+      const divProduto = document.createElement('div');
+      divProduto.classList.add('produto');
 
-    const nomeImagemElement = document.createElement('p');
-    nomeImagemElement.textContent = nomeImagem;  // Exibimos o nome da imagem abaixo
+      const imgProduto = document.createElement('img');
+      imgProduto.src = caminhoImagem;
+      imgProduto.alt = nomeImagem;
 
-    // Adiciona a imagem e o nome à div do produto
-    divProduto.appendChild(imgProduto);
-    divProduto.appendChild(nomeImagemElement);
+      const nomeImagemElement = document.createElement('p');
+      nomeImagemElement.textContent = nomeImagem;  // Exibimos o nome da imagem abaixo
 
-    // Adiciona a div do produto à seção de produtos
-    produtosSection.appendChild(divProduto);
+      // Adiciona a imagem e o nome à div do produto
+      divProduto.appendChild(imgProduto);
+      divProduto.appendChild(nomeImagemElement);
+
+      // Adiciona a div do produto à seção de produtos
+      produtosSection.appendChild(divProduto);
+    }
   }
+}
+
+// Função para verificar se a imagem existe
+function verificarImagem(caminho) {
+  const img = new Image();
+  img.src = caminho;
+
+  // Verificar se a imagem está carregada corretamente
+  img.onload = function() {
+    return true;
+  };
+  img.onerror = function() {
+    return false;
+  };
+  return false;
 }
 
 // Chama a função para gerar os produtos
