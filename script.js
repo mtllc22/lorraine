@@ -23,7 +23,8 @@ function gerarProdutos() {
     imgPromise
       .then(() => {
         // Se a imagem carregou com sucesso, criamos o produto
-        const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
+        // Remover os parênteses do nome da imagem
+        const nomeImagem = `produto (${i})`.replace(/[()]/g, '');  // Remove os parênteses
 
         const divProduto = document.createElement('div');
         divProduto.classList.add('produto');
@@ -34,7 +35,7 @@ function gerarProdutos() {
 
         // Cria e adiciona o nome da imagem abaixo da foto
         const nomeImagemElement = document.createElement('p');
-        nomeImagemElement.textContent = nomeImagem;
+        nomeImagemElement.textContent = nomeImagem;  // Agora sem parênteses
         divProduto.appendChild(nomeImagemElement);
 
         // Adiciona a div do produto à seção de produtos
