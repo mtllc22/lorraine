@@ -7,15 +7,22 @@ function gerarProdutos() {
       imagem: `img/produto (${i}).png`,  // Caminho para a imagem
     };
 
+    // Extrair o nome do arquivo (sem a extensão)
+    const nomeImagem = `produto (${i})`;  // Nome da imagem sem a extensão
+
     const divProduto = document.createElement('div');
     divProduto.classList.add('produto');
 
     const imgProduto = document.createElement('img');
     imgProduto.src = produto.imagem;
-    imgProduto.alt = `Produto ${i}`;  // A imagem terá um texto alternativo com o número do produto
+    imgProduto.alt = nomeImagem;  // Usamos o nome do produto como texto alternativo
 
-    // Adiciona a imagem à div do produto
+    const nomeImagemElement = document.createElement('p');
+    nomeImagemElement.textContent = nomeImagem;  // Exibimos o nome da imagem abaixo
+
+    // Adiciona a imagem e o nome à div do produto
     divProduto.appendChild(imgProduto);
+    divProduto.appendChild(nomeImagemElement);
 
     // Adiciona a div do produto à seção de produtos
     produtosSection.appendChild(divProduto);
