@@ -3,7 +3,7 @@ function gerarProdutos() {
 
   // Array para armazenar os nomes e caminhos das imagens
   const imagens = [];
-  for (let i = 1; i <= 40; i++) { // Ajuste para incluir até 40 produtos
+  for (let i = 1; i <= 40; i++) { // Garantir até 40 produtos
     const caminhoImagem = `img/produto (${i}).jpg`;
     const nomeImagem = `produto (${i})`.replace(/[()]/g, '');
     imagens.push({ caminho: caminhoImagem, nome: nomeImagem });
@@ -12,7 +12,7 @@ function gerarProdutos() {
   // Ordenar as imagens em ordem alfabética
   imagens.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { numeric: true }));
 
-  // Criar os elementos no DOM, independentemente de carregar ou não
+  // Garantir que os produtos sejam renderizados na ordem correta
   imagens.forEach(imagem => {
     const divProduto = document.createElement('div');
     divProduto.classList.add('produto');
@@ -21,9 +21,9 @@ function gerarProdutos() {
     img.src = imagem.caminho;
     img.alt = imagem.nome;
 
-    // Garantir que o elemento seja renderizado mesmo que a imagem falhe
+    // Tratar erros de carregamento
     img.onerror = function () {
-      img.src = 'img/placeholder.jpg'; // Exibir uma imagem padrão se a original não carregar
+      img.src = 'img/placeholder.jpg'; // Exibir imagem padrão em caso de erro
     };
 
     divProduto.appendChild(img);
