@@ -27,7 +27,7 @@ function gerarProdutos() {
         const nomeImagem = `produto (${i})`.replace(/[()]/g, '');  // Remove os parênteses
 
         const divProduto = document.createElement('div');
-        divProduto.classList.add('col-12', 'col-sm-6', 'col-md-4', 'col-lg-3', 'produto');
+        divProduto.classList.add('produto');
 
         // A imagem é carregada corretamente, então a adicionamos à div
         img.alt = nomeImagem;  // Definir texto alternativo para a imagem
@@ -54,13 +54,26 @@ function gerarProdutos() {
 
 // Função para abrir a imagem no modal
 function abrirModal(imagem, nomeImagem) {
-  const modal = $('#modal');  // Usando jQuery do Bootstrap
-  const modalImg = $('#modal-img');
-  const captionText = $('#modal-caption');
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const captionText = document.getElementById("modal-caption");
 
-  modal.modal('show');  // Exibe o modal do Bootstrap
-  modalImg.attr('src', imagem);  // Define a imagem do modal
-  captionText.text(nomeImagem);  // Define o nome da imagem na legenda
+  modal.style.display = "block";  // Exibe o modal
+  modalImg.src = imagem;  // Define a imagem do modal
+  captionText.textContent = nomeImagem;  // Define o nome da imagem na legenda
+
+  // Quando o usuário clica no "X", fecha o modal
+  const closeBtn = document.getElementById("close");
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Fechar o modal se clicar fora da imagem
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 }
 
 // Chama a função para gerar os produtos
